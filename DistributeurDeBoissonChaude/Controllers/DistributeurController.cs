@@ -2,7 +2,6 @@
 using DistributeurDeBoissonChaude.Api.Services;
 using HotDrinkDistributor.Infrastructure.Extensions;
 using Microsoft.AspNetCore.Mvc;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace DistributeurDeBoissonChaude.Api.Controllers
 {
@@ -14,7 +13,7 @@ namespace DistributeurDeBoissonChaude.Api.Controllers
         public DistributeurController(IDistributeurService distributeurService) => _distributeurService = distributeurService;
 
         [HttpGet("{id}")]
-        public IActionResult GetReceipe(int id) => Ok(_distributeurService.GetRecipe(id));
+        public IActionResult GetRecipe(int id) => Ok(_distributeurService.GetRecipe(id));
 
         [HttpGet]
         public IActionResult GetAllRecipes() => Ok(_distributeurService.GetAllRecipes());
@@ -24,9 +23,9 @@ namespace DistributeurDeBoissonChaude.Api.Controllers
         {
             try
             {
-                Recette recette = RecipeExtensions.ToDomainRecipe(recetteInfra);
+                Recette recette = RecetteExtensions.ToDomainRecipe(recetteInfra);
                 _distributeurService.AddRecipe(recette);
-                return CreatedAtAction(nameof(GetReceipe), recette);
+                return CreatedAtAction(nameof(GetRecipe), recette);
             }
             catch (Exception e)
             {
@@ -35,7 +34,7 @@ namespace DistributeurDeBoissonChaude.Api.Controllers
         }
 
         [HttpDelete("{id}")]
-        public IActionResult DeleteRecipe(int id)
+        public IActionResult DeleteRcipe(int id)
         {
             try
             {
@@ -50,11 +49,11 @@ namespace DistributeurDeBoissonChaude.Api.Controllers
         }
 
         [HttpPut]
-        public IActionResult UpdateReceipe([FromBody] RecetteInfra recetteInfra)
+        public IActionResult UpdateRecipe([FromBody] RecetteInfra recetteInfra)
         {
             try
             {
-                Recette recette = RecipeExtensions.ToDomainRecipe(recetteInfra);
+                Recette recette = RecetteExtensions.ToDomainRecipe(recetteInfra);
                 _distributeurService.UpdateRecipe(recette);
                 return Ok();
             }

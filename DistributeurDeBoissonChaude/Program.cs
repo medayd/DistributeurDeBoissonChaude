@@ -1,3 +1,6 @@
+using DistributeurDeBoissonChaude.Api;
+using DistributeurDeBoissonChaude.Api.DBContext;
+using DistributeurDeBoissonChaude.Api.Models;
 using DistributeurDeBoissonChaude.Api.Repository;
 using DistributeurDeBoissonChaude.Api.Services;
 
@@ -11,7 +14,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<IDistributeurService, DistributeurService>();
 builder.Services.AddSingleton<IDistributeurRepository, DistributeurRepository>();
-
+builder.Services.Configure<MargeConfig>(builder.Configuration.GetSection("MargeConfig"));
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

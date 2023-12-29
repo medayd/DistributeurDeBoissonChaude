@@ -2,19 +2,22 @@ using DistributeurDeBoissonChaude.Api.Models;
 using DistributeurDeBoissonChaude.Api.Repository;
 using DistributeurDeBoissonChaude.Api.Services;
 using FakeItEasy;
-using Moq;
+using Microsoft.Extensions.Options;
+
 namespace DistributeurDeBoissonChaude.Api.Test
 {
     public class DeleteRecipeTests
     {
         private IDistributeurRepository _mockRepository;
         private IDistributeurService _DistributeurService;
+        private IOptions<MargeConfig> _mockConfig;
 
         [SetUp]
         public void Setup()
         {
             _mockRepository = A.Fake<IDistributeurRepository>();
-            _DistributeurService = new DistributeurService(_mockRepository);
+            _mockConfig = A.Fake<IOptions<MargeConfig>>();
+            _DistributeurService = new DistributeurService(_mockRepository, _mockConfig);
         }
 
         [Test]
